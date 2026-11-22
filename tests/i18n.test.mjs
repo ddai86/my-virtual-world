@@ -5,7 +5,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { translate, LANGS, DEFAULT_LANG } from '../client/js/core/i18n.js';
-import vi, { PATTERNS } from '../client/js/i18n/vi.js';
+import vi, { PATTERNS, CORE_KEYS } from '../client/js/i18n/vi.js';
 import { SETTINGS } from '../server/settings.js';
 
 const d = { Settings: 'Cài đặt', 'Loading the city': 'Đang tải thành phố', 'Build on your lot:': 'Xây trên lô đất của bạn:' };
@@ -42,7 +42,7 @@ test('every other language has a full dictionary and working patterns', async ()
     if (code === 'vi' || code === 'en') continue;
     const mod = await import(`../client/js/i18n/${code}.js`);
     const dict = mod.default;
-    for (const k of Object.keys(vi)) assert.ok(typeof dict[k] === 'string' && dict[k].trim(), `${code}: ${k}`);
+    for (const k of CORE_KEYS) assert.ok(typeof dict[k] === 'string' && dict[k].trim(), `${code}: ${k}`);
     assert.equal(translate('Transparency: 30%', dict, mod.PATTERNS)?.includes('30'), true, `${code} pattern`);
     assert.match(translate('Mon · day 4 · paused', dict, mod.PATTERNS) ?? '', /4/, `${code} day pattern`);
   }

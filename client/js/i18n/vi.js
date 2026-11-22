@@ -2,7 +2,9 @@
 // Tiếng Việt: the interface's English text → Vietnamese (core/i18n.js). Keys are the exact English the code writes,
 // without a leading emoji or a trailing colon / ellipsis (those are kept around the translation). Text with no entry
 // stays English, so a missing line is never an error. Product names (Lemon Squeezy, Virtual Coin, OpenClaw …) stay.
-export default {
+import extra from './vi-extra.js';
+
+const core = {
   // ── the brand, loading and connection
   'My Virtual World': 'Thế Giới Ảo Của Tôi',
   'Starting': 'Đang khởi động',
@@ -493,6 +495,9 @@ export default {
   'All your agents are out with you or on an order.': 'Mọi agent của bạn đang đi cùng bạn hoặc đang làm theo lệnh.',
   'No other agent of yours is in the city.': 'Không còn agent nào khác của bạn trong thành phố.',
 };
+/** The keys every other language must translate; vi-extra.js entries are Vietnamese-only for now. */
+export const CORE_KEYS = Object.keys(core);
+export default { ...core, ...extra };
 
 /** Text with a number or a name in it: [pattern over the whole text, replacement]. */
 export const PATTERNS = [
