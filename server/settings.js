@@ -526,7 +526,7 @@ export const SETTINGS = Object.freeze([
   // The theme (WP1.9, C39): one of the three token sets in client/css/theme.css. A preference, so it follows the
   // account to every device and needs no password entry.
   // The interface's language (client/js/core/i18n.js): Vietnamese by default, English the original text.
-  { path: 'display.lang', scope: 'account', tier: 0, type: 'enum', values: ['vi', 'en'], default: 'vi', label: 'Language' },
+  { path: 'display.lang', scope: 'account', tier: 0, type: 'enum', values: ['vi', 'en', 'zh', 'zh-TW', 'ja', 'ko', 'th', 'fr', 'ru', 'de', 'es', 'id', 'ms', 'fil', 'km', 'lo', 'my'], default: 'vi', label: 'Language' },
   { path: 'display.theme', scope: 'account', tier: 0, type: 'enum', values: ['dark', 'light', 'contrast'], default: 'dark', label: 'Theme' },
   // Agents' and residents' own emoji: as the emoji they chose, or drawn in the theme's icon style (client/js/core/icons.js).
   { path: 'display.agentEmoji', scope: 'account', tier: 0, type: 'enum', values: ['normal', 'styled'], default: 'normal', label: "Agents' emoji" },

@@ -37,3 +37,13 @@ test('the picker\'s languages are the server\'s', () => {
   assert.deepEqual(row.values, LANGS.map(([c]) => c));
   assert.equal(row.default, DEFAULT_LANG);
 });
+test('every other language has a full dictionary and working patterns', async () => {
+  for (const [code] of LANGS) {
+    if (code === 'vi' || code === 'en') continue;
+    const mod = await import(`../client/js/i18n/${code}.js`);
+    const dict = mod.default;
+    for (const k of Object.keys(vi)) assert.ok(typeof dict[k] === 'string' && dict[k].trim(), `${code}: ${k}`);
+    assert.equal(translate('Transparency: 30%', dict, mod.PATTERNS)?.includes('30'), true, `${code} pattern`);
+    assert.match(translate('Mon · day 4 · paused', dict, mod.PATTERNS) ?? '', /4/, `${code} day pattern`);
+  }
+});
