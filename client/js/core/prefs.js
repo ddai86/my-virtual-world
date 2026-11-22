@@ -8,6 +8,7 @@
 import { S, bus } from './state.js';
 import { auth } from './auth.js';
 import { SOUND_DEFAULTS } from '/shared/sound-defaults.js';
+import { currentLang, setLang } from './i18n.js';
 
 const local = {
   get: k => localStorage.getItem(k),
@@ -21,6 +22,8 @@ function vol(key, dflt) {
     apply: v => { local.set(`mvw.vol.${key}`, String(clampVol(v))); bus.emit('sound', key); } };
 }
 const PREFS = {
+  // the interface's language (core/i18n.js); a change shows after a reload
+  lang: { path: 'display.lang', get: currentLang, apply: setLang },
   theme: { path: 'display.theme', get: () => local.get('mw.theme') || 'dark', apply: v => local.set('mw.theme', v && v !== 'dark' ? v : null) },
   // agents' and residents' own emoji: as emoji (normal) or drawn in the theme's icon style (styled) — core/icons.js
   agentEmoji: { path: 'display.agentEmoji', get: () => local.get('mvw.agentEmoji') || 'normal', apply: v => local.set('mvw.agentEmoji', v === 'styled' ? 'styled' : null) },
