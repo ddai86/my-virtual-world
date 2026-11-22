@@ -9,7 +9,7 @@
 
 /** [code, name in its own language] — the Settings → Display picker. Add a language: a row here and its dictionary. */
 export const LANGS = [
-  ['vi', 'Tiếng Việt'], ['en', 'English'], ['zh', '中文（简体）'], ['ja', '日本語'], ['ko', '한국어'], ['th', 'ไทย'],
+  ['vi', 'Tiếng Việt'], ['en', 'English'], ['zh', '中文（简体）'], ['zh-TW', '中文（繁體）'], ['ja', '日本語'], ['ko', '한국어'], ['th', 'ไทย'],
   ['fr', 'Français'], ['ru', 'Русский'], ['de', 'Deutsch'], ['es', 'Español'], ['id', 'Bahasa Indonesia'],
   ['ms', 'Bahasa Melayu'], ['fil', 'Filipino'], ['km', 'ខ្មែរ'], ['lo', 'ລາວ'], ['my', 'မြန်မာ'],
 ];
