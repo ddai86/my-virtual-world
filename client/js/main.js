@@ -22,6 +22,7 @@ import { Doors } from './render/doors.js';
 import { Agents } from './render/agents.js';
 import { SignAtlas } from './render/qb.js';
 import { watchIcons } from './core/icons.js';
+import { watchI18n } from './core/i18n.js';
 import { hourAt, dayAt, floorAt } from '/shared/constants.js';
 import { installEyes } from './core/pw-eye.js';
 installEyes();   // the show/hide eye on every password field, the sign-in dialog at boot included
@@ -37,6 +38,9 @@ const nextFrame = () => new Promise(r => requestAnimationFrame(() => r()));
 export const app = { S, bus, Q, THREE, auth };
 window.__mvw = app;
 app.icons = watchIcons(document.body);   // the interface's emoji become the theme's line icons (core/icons.js)
+watchI18n(document.body);   // the interface's English text in the chosen language, Vietnamese by default (core/i18n.js)
+// another device changed the account's language: show this page in it too
+bus.on('prefs', names => { if (names.includes('lang')) location.reload(); });
 
 /** The walls of the focused floor: in Play mode always full height with a ceiling (interiors.js 'fp'), whatever the
  *  view's cutaway / full / low (the product owner 2026-10-27: in player mode buildings, floors and ceilings are always

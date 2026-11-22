@@ -13,6 +13,7 @@ import { post } from '../core/net.js';
 import { pref, setPref, setPrefs, previewPref } from '../core/prefs.js';
 import { SOUND_DEFAULTS } from '/shared/sound-defaults.js';
 import { soundOn, setSoundOn } from '../audio/mixer.js';
+import { LANGS } from '../core/i18n.js';
 import { THEMES, apply, AGENT_EMOJI, applyAgentEmoji, TRANSPARENCY_MAX, TRANSPARENCY_STEP, transparencyOf } from '../core/theme.js';
 import { authDialog } from './account.js';
 import { accountPanel } from './account.js';
@@ -131,6 +132,9 @@ function soundTab(d, body) {
 function displayTab(d, body) {
   const qual = (app && app.stage && app.stage.q.name) || S.quality;
   body.innerHTML = `
+    <label>Language<span class="row"><select class="input lang">
+      ${LANGS.map(([v, t]) => `<option value="${v}"${pref('lang') === v ? ' selected' : ''}>${t}</option>`).join('')}</select></span></label>
+    <p class="hint">The language of menus and windows on this device. Changing it reloads the page.</p>
     <label>Theme<span class="row"><select class="input theme">
       ${THEMES.map(([v, t]) => `<option value="${v}"${pref('theme') === v ? ' selected' : ''}>${t}</option>`).join('')}</select></span></label>
     <p class="hint">Dark is the default. The choice follows your account; a guest's stays in this browser.</p>
@@ -167,6 +171,7 @@ function displayTab(d, body) {
   tr.oninput = () => { trV.textContent = `${tr.value}%`; previewPref('transparency', Number(tr.value)); };
   tr.onchange = () => { setPref('transparency', Number(tr.value)); say(app, `Transparency: ${tr.value}%`); };
   trOff();
+  body.querySelector('.lang').onchange = e => { setPref('lang', e.target.value); setTimeout(() => location.reload(), 300); };
   body.querySelector('.theme').onchange = e => {
     setPref('theme', e.target.value);
     apply(e.target.value);
